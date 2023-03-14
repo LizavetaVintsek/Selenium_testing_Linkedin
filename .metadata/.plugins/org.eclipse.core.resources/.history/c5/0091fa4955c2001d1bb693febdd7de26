@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="LinkedinTestsSuite" verbose="1">
+	<test name="positiveJobSearchTests">
+		<parameter name="jobTitle" value="QA" />
+		<parameter name="localization" value="Cracow" />
+		<classes>
+			<class name="com.linkedin.LinkedinTests">
+			</class>
+		</classes>
+	</test>
+	<test name="positiveJobSearchTests">
+		<parameter name="jobTitle" value="Tester" />
+		<parameter name="localization" value="Wroclaw" />
+		<classes>
+			<class name="com.linkedin.LinkedinTests">
+			</class>
+		</classes>
+	</test>
+	
+</suite>
+
+

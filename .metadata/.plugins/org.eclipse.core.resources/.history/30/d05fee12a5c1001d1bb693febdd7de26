@@ -1,0 +1,157 @@
+package com.linkedin;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class NegativeTests {
+	
+	@Parameters({ "username", "password", "message" })
+	@Test(groups = {"negativeTests", "smokeTests"})
+	public void InvalidLoginTest(String username, String password, String expectedMessage) {
+		System.out.println("Starting loginTest with " + username + " and " + password);
+
+// 		Create driver for Firefox
+//		System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+//		WebDriver driver = new FirefoxDriver();
+
+// 		Create driver for Chrome
+		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+
+//		maximize browser window
+		driver.manage().window().maximize();
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+
+//		open test page
+		String url = "https://www.linkedin.com/";
+		driver.get(url);
+		System.out.println("Page is opened");
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+//		enter user name
+		WebElement usernameElement = driver.findElement(By.xpath("//input[@name='session_key']"));
+		usernameElement.sendKeys(username);
+
+		System.out.println("Invalid username is entered");
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+
+//		enter password
+		WebElement passwordElement = driver.findElement(By.xpath("//input[@name='session_password']"));
+		passwordElement.sendKeys(password);
+
+		System.out.println("Password is entered");
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+
+//		click login button
+		WebElement logInButton = driver.findElement(By.xpath("//button[@type='submit']"));
+
+		logInButton.click();
+
+//		verification:
+////		Jobs button is visible and the text is equal to 'Jobs'
+//		WebElement errorMessage = driver.findElement(By.id("error-for-username"));
+//		String actualMessage = errorMessage.getText();
+//		Assert.assertTrue(actualMessage.contains(expectedMessage),
+//				"Actual message does not contain expected message.\nActual Message: " + actualMessage
+//						+ "\nExpected Message: " + expectedMessage);
+//		System.out.println("Expected error message is appear");
+		
+//		Security check is suggested
+		WebElement errorMessage = driver.findElement(By.xpath("//span[@class='fc_meta_audio_btn']"));
+		String actualMessage = errorMessage.getText();
+		Assert.assertTrue(actualMessage.contains(expectedMessage),
+				"Actual message does not contain expected message.\nActual Message: " + actualMessage
+						+ "\nExpected Message: " + expectedMessage);
+		System.out.println("Expected error message is appear");
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+//	close browser
+		driver.quit();
+	}
+
+	/*
+	 * @Test(groups = {"negativeTests"}) public void InvalidPasswordTest() {
+	 * System.out.println("Starting loginTest");
+	 * 
+	 * // Create driver System.setProperty("webdriver.chrome.driver",
+	 * "src/main/resources/chromedriver.exe"); WebDriver driver = new
+	 * ChromeDriver();
+	 * 
+	 * // maximize browser window driver.manage().window().maximize();
+	 * 
+	 * // sleep for 1 sec (just to slow down and visualize the selenium work)
+	 * sleep(1000);
+	 * 
+	 * // open test page String url = "https://www.linkedin.com/"; driver.get(url);
+	 * System.out.println("Page is opened");
+	 * 
+	 * // sleep for 1 sec (just to slow down and visualize the selenium work)
+	 * sleep(1000); // enter user name WebElement username =
+	 * driver.findElement(By.xpath("//input[@name='session_key']"));
+	 * username.sendKeys("lizaveta.vintsek@gmail.com");
+	 * 
+	 * System.out.println("Valid username is entered"); // sleep for 1 sec (just to
+	 * slow down and visualize the selenium work) sleep(1000);
+	 * 
+	 * // enter password WebElement password =
+	 * driver.findElement(By.xpath("//input[@name='session_password']"));
+	 * password.sendKeys("InvalidPassword1");
+	 * 
+	 * System.out.println("Invalid password is entered");
+	 * 
+	 * // sleep for 1 sec (just to slow down and visualize the selenium work)
+	 * sleep(1000);
+	 * 
+	 * // click login button WebElement logInButton =
+	 * driver.findElement(By.xpath("//button[@type='submit']"));
+	 * 
+	 * logInButton.click();
+	 * 
+	 * // verification: // Error message is visible and the text contains 'That's
+	 * not the right password.' WebElement errorMessage =
+	 * driver.findElement(By.xpath("//div[@id='error-for-password']"));
+	 * 
+	 * String expectedMessage = "That's not the right password."; String
+	 * actualMessage = errorMessage.getText();
+	 * Assert.assertTrue(actualMessage.contains(expectedMessage),
+	 * "Actual message does not contain expected message.\nActual Message: " +
+	 * actualMessage + "\nExpected Message: " + expectedMessage);
+	 * System.out.println("Expected error message is appear");
+	 * 
+	 * //After several wrong attepmt the user will be redirected to the page with
+	 * the capcha. To test it use: // // WebElement errorMessage =
+	 * driver.findElement(By.xpath("//div[@class='body__banner-icon']")); //
+	 * //String expectedMessage = "Let's do a quick security check"; //String
+	 * actualMessage = errorMessage.getText();
+	 * //Assert.assertTrue(actualMessage.contains(expectedMessage), //
+	 * "Actual message does not contain expected message.\nActual Message: " +
+	 * actualMessage // + "\nExpected Message: " + expectedMessage);
+	 * //System.out.println("Expected error message is appear");
+	 * 
+	 * // sleep for 1 sec (just to slow down and visualize the selenium work)
+	 * sleep(1000);
+	 * 
+	 * // close browser driver.quit(); }
+	 */
+
+	private void sleep(long m) {
+		try {
+			Thread.sleep(m);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}

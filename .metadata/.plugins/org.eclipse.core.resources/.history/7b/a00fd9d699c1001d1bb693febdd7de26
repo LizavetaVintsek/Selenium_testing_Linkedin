@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="NegativeTestsSuite" verbose="1">
+	<test name="NegativeUsernameTests">
+		<parameter name="username" value="invalid_username" />
+		<parameter name="password" value="1025054nature" />
+		<parameter name="message" value="Please enter a valid email address." />
+		<classes>
+			<class name="com.linkedin.NegativeTests"></class>
+		</classes>
+	</test>
+	<test name="NegativePasswordTests">
+		<parameter name="username" value="lizaveta.vintsek@gmail.com" />
+		<parameter name="password" value="InvalidPassword1" />
+		<parameter name="message" value="That's not the right password." />
+		<!-- 	To run only the tests included in the group
+<groups>
+			<run>
+				<include name="smokeTests" />
+			</run>
+		</groups> -->
+		<classes>
+			<class name="com.linkedin.NegativeTests">
+				<!-- 	To run only the tests that is included or excluded from the suite
+			<methods>
+					<include name="InvalidPasswordTest"/>
+					<exclude name="InvalidUsernameTest"/>
+				</methods> -->
+			</class>
+		</classes>
+	</test>
+</suite>

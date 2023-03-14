@@ -1,0 +1,8 @@
+1678635597164	Extract method 'sleep'
+1678636132161	Rename type 'NegativeUserName'
+1678715025186	Rename type 'NegativeTests'
+1678715749985	Rename resource 'NegativeTests.xml'
+1678719506374	Extract method 'tearDown'
+1678784628871	Rename resource 'LinkedinJobSearch'
+1678785123779	Rename type 'LinkedinJobSearch'
+1678785144607	Delete element

@@ -1,0 +1,105 @@
+package com.linkedin;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+public class LinkedinTests {
+	
+	private WebDriver driver;
+
+	@BeforeMethod(alwaysRun = true)
+	private void setUp() {
+
+//		Create driver
+		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+		driver = new ChromeDriver();
+
+//		maximize browser window
+		driver.manage().window().maximize();
+	}
+	
+	@Parameters({ "jobTitle", "localization" })
+	@Test(priority = 1, groups = { "positiveTests", "jobSearchTests" })
+	public void positiveJobSearchTests(String jobTitle, String localization) {
+		System.out.println("Starting jobSearchTest with " + jobTitle + " and " + localization);
+
+
+//		open test page
+		String url = "https://www.linkedin.com/";
+		driver.get(url);
+		System.out.println("Page is opened");
+
+//		enter user name
+		WebElement username = driver.findElement(By.xpath("//input[@name='session_key']"));
+		username.sendKeys("lizaveta.vintsek@gmail.com");
+		System.out.println("Username is entered");
+
+//		enter password
+		WebElement password = driver.findElement(By.xpath("//input[@name='session_password']"));
+		password.sendKeys("1025054nature");
+		System.out.println("Password is entered");
+
+//		click login button
+		WebElement logInButton = driver.findElement(By.xpath("//button[@type='submit']"));
+		logInButton.click();
+		System.out.println("'Log in' button is clicked");
+		
+//		verification:
+		
+//			1. new url
+		String expectedUrl = "https://www.linkedin.com/feed/?trk=homepage-basic_sign-in-submit";
+		String actualUrl = driver.getCurrentUrl();
+		Assert.assertEquals(actualUrl, expectedUrl, "Actual page url is not the same as expected");
+		System.out.println("Expected url is checked");
+
+//			2. 'Go to the home page' button is visible
+		WebElement goToTheHomePage = driver.findElement(By.xpath("//li-icon[@type='app-linkedin-bug-color-icon']"));
+		Assert.assertTrue(goToTheHomePage.isDisplayed(), "Home page button is not visible");
+		System.out.println("Home page button is vissible");
+		
+//			click the 'Jobs' button
+		WebElement jobsButton = driver.findElement(By.xpath("//span[@title='Jobs']"));
+		jobsButton.click();
+		System.out.println("'Jobs' button is clicked");
+		
+//		enter job title
+		WebElement jobTitleElement = driver.findElement(By.xpath("//input[@class='jobs-search-box__text-input jobs-search-box__keyboard-text-input']"));
+		jobTitleElement.sendKeys(jobTitle);
+		jobTitleElement.sendKeys(Keys.ENTER);
+		System.out.println("Job title is entered");	
+		
+//		enter localization
+		WebElement localizationElement = driver.findElement(By.xpath("//input[@class='jobs-search-box__text-input']"));
+		localizationElement.clear();
+		localizationElement.sendKeys(localization);
+		localizationElement.sendKeys(Keys.ENTER);
+		System.out.println("Localization is entered");	
+		
+//		select first search result
+		WebElement searchResultElement = driver.findElement(By.xpath("//div[contains(@class, 'viewport-tracking-0')]"));
+		searchResultElement.click();
+		System.out.println("First search result is selected");	
+		
+//		save the search result
+		WebElement SaveElement = driver.findElement(By.xpath("//button[@class='jobs-save-button artdeco-button artdeco-button--3 artdeco-button--secondary']"));
+		SaveElement.click();
+		System.out.println("First search result is saved");	
+	}
+
+	@AfterMethod(alwaysRun = true)
+	private void tearDown() {
+		// close browser
+		driver.quit();
+
+	}
+}

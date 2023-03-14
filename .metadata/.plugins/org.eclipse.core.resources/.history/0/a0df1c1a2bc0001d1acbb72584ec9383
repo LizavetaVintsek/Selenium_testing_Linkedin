@@ -1,0 +1,22 @@
+package com.linkedin;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class PositiveTests {
+	
+	public void loginTest() {
+// 		Create driver
+		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe")
+		WebDriver driver = new ChromeDriver()
+//		open test page
+//		enter user name
+//		enter password
+//		click login button
+//		verification:
+//			new url
+//			logout button is visible
+//			successfull login message
+	}
+
+}

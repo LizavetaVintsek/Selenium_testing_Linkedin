@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [LoginTestsSuite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="NegativePasswordTests(failed)">
+    <parameter name="password" value="InvalidPassword1"/>
+    <parameter name="browser" value="firefox"/>
+    <parameter name="message" value="That&#039;s not the right password."/>
+    <parameter name="username" value="lizaveta.vintsek@gmail.com"/>
+    <classes>
+      <class name="com.linkedin.LoginTests">
+        <methods>
+          <include name="tearDown"/>
+          <include name="negativeLoginTests" invocation-numbers="0"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- com.linkedin.LoginTests -->
+    </classes>
+  </test> <!-- NegativePasswordTests(failed) -->
+</suite> <!-- Failed suite [LoginTestsSuite] -->

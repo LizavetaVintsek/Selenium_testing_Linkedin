@@ -1,0 +1,72 @@
+package com.linkedin;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class NegativeUserName {
+	@Test
+	public void InvalidUsernameTest() {
+		System.out.println("Starting loginTest");
+
+// 		Create driver
+		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+			sleep(1000);
+		
+//		maximize browser window
+		driver.manage().window().maximize();
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+//		open test page
+		String url = "https://www.linkedin.com/checkpoint/rm/sign-in-another-account?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin";
+		driver.get(url);
+		System.out.println("Page is opened");
+
+//		sleep for 1 sec (just to slow down and visualize the selenium work)
+		sleep(1000);
+//		enter user name
+		WebElement username = driver.findElement(By.xpath("//input[@name='session_key']"));
+		username.sendKeys("invalid_username");
+
+		System.out.println("Invalid username is entered");
+
+//		enter password
+		WebElement password = driver.findElement(By.xpath("//input[@name='session_password']"));
+		password.sendKeys("1025054nature");
+
+		System.out.println("Password is entered");
+
+//		click login button
+		WebElement logInButton = driver.findElement(By.xpath("//button[@type='submit']"));
+
+		logInButton.click();
+
+//		verification:
+//		Jobs button is visible and the text is equal to 'Jobs'
+		WebElement errorMessage = driver.findElement(By.id("error-for-username"));
+		String expectedMessage = "Please enter a valid username";
+		String actualMessage = errorMessage.getText();
+		Assert.assertTrue(actualMessage.contains(expectedMessage),
+				"Actual message does not contain expected message.\nActual Message: " + actualMessage
+						+ "\nExpected Message: " + expectedMessage);
+		System.out.println("Expected error message is appear");
+
+//	close browser
+		driver.quit();
+	}
+
+	private void sleep(long m) {
+		try {
+			Thread.sleep(m);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
