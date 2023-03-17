@@ -41,12 +41,12 @@ public class LinkedinTests {
 
 //		enter user name
 		WebElement username = driver.findElement(By.xpath("//input[@name='session_key']"));
-		username.sendKeys("lizaveta.vintsek@gmail.com");
+		username.sendKeys("valid_email");
 		System.out.println("Username is entered");
 
 //		enter password
 		WebElement password = driver.findElement(By.xpath("//input[@name='session_password']"));
-		password.sendKeys("1025054nature");
+		password.sendKeys("valid_password");
 		System.out.println("Password is entered");
 
 //		click login button
